@@ -1,3 +1,19 @@
+<?php
+
+require 'classes/view/UsuarioView.php';
+$usuario = new UsuarioView();
+
+    if(isset($_POST['senha']) && ($_POST['senha'] === $_POST['confirmacao'])){
+        $usuario->cadastrarUsuario($_POST);
+        header('location:index.php');
+        
+    }else if(isset($_POST['senha']) && ($_POST['senha'] !== $_POST['confirmacao'])){
+        
+        echo 'Senha é diferente da confirmação';
+        
+    }
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,35 +29,35 @@
                     <div class="panel" style="margin-top: 100px;">
                         <div class="panel-body">
                             <h4>EdBook - Login</h4>
-                            <form>
+                            <form method="post">
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
                                         <label>Nome completo</label>
-                                        <input type="text" name="nome" class="form-control">
+                                        <input type="text" name="nome" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
                                         <label>Usuário</label>
-                                        <input type="text" name="usuario" class="form-control">
+                                        <input type="text" name="usuario" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
                                         <label>Email</label>
-                                        <input type="email" name="email" class="form-control">
+                                        <input type="email" name="email" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
                                         <label>Senha</label>
-                                        <input type="password" name="senha" class="form-control">
+                                        <input type="password" name="senha" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
                                         <label>Confirmação de senha</label>
-                                        <input type="password" name="confirmacao" class="form-control">
+                                        <input type="password" name="confirmacao" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="row">
