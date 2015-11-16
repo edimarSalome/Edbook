@@ -1,3 +1,17 @@
+<?php
+
+    require_once 'classes/view/UsuarioView.php';
+    require_once 'classes/view/ComentarioView.php';
+    
+    $usuario = new UsuarioView();
+    $idUsuario = isset($_GET['userId']) ? $_GET['userId'] : null ;
+    $comentario = new ComentarioView();
+    
+    if(isset($_POST['comentario'])){
+        $comentario->comentar($idUsuario, $_POST['comentario']);
+    }
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,20 +25,16 @@
         <div class="container" style="padding-top:25px;">
             <div class="row">
                 <div class="col-sm-12 col-md-3">
-                    <img class="foto-perfil" src="img/perfil.jpg" alt="Foto perfil" title="Foto perfil"/>
-                    <ul class="list-group">
-                        <li class="list-group-item">@OJusticeiro</li>
-                        <li class="list-group-item">Meus amigos</li>
-                    </ul>
+                    <?php $usuario->getPerfilUsuarioLogado($idUsuario); ?>
                 </div>
                 <div class="col-sm-12 col-md-9">
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="panel">
                                 <div class="panel-body">
-                                    <form>
+                                    <form method="post">
                                         <div class="col-sm-12 form-group">
-                                            <textarea placeholder="Vai dizer o que?" class="form-control"></textarea>
+                                            <textarea placeholder="Vai dizer o que?" class="form-control" name="comentario"></textarea>
                                         </div>
                                         <div class="col-sm-12 form-group">
                                             <button type="submit" class="btn btn-primary pull-right">Publicar</button>
@@ -36,28 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="panel">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-2">
-                                            <img src="img/perfil.jpg" alt="Usuario" class="foto-comentario"/>
-                                        </div>
-                                        <div class="col-sm-12 col-md-10">
-                                            <span class="nome-comentario">@OJusticeiro</span>
-                                            <span class="data-comentario">26 set 2015</span>
-                                            <p>" Este projeto é muito legal! hahahahahahaahhaas "</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="row">
-                                        <div class="col-sm-12 text-right">
-                                            <span><a href="#"><i class="glyphicon glyphicon-star"></i> 30</a></span>
-                                            <span><a href="#"><i class="glyphicon glyphicon-share-alt"></i> 200</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php $comentario->getFeedByUsuario($idUsuario); ?>
                         </div>
                     </div>
                 </div>
