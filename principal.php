@@ -2,13 +2,21 @@
 
     require_once 'classes/view/UsuarioView.php';
     require_once 'classes/view/ComentarioView.php';
-    
+    session_start();
     $usuario = new UsuarioView();
-    $idUsuario = isset($_GET['userId']) ? $_GET['userId'] : null ;
+    $idUsuario = isset($_GET['userId']) ? $_GET['userId'] : null ; //será obtido via sessão
     $comentario = new ComentarioView();
+    
+    print_r($_SESSION['idUsuario']);
     
     if(isset($_POST['comentario'])){
         $comentario->comentar($idUsuario, $_POST['comentario']);
+    }
+    if(isset($_POST['addStar']) && isset($_POST['idComentario'])){
+        $comentario->addStar($_POST['idComentario']);
+    }
+    if(isset($_POST['replicar']) && isset($_POST['idComentario'])){
+        $comentario->replicar($_POST['idComentario'], $idUsuario);
     }
 
 ?>

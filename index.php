@@ -1,3 +1,19 @@
+<?php
+
+require_once 'classes/view/UsuarioView.php';
+    
+    if(isset($_POST['login']) && isset($_POST['senha'])){
+        $usuario = new UsuarioView();
+        
+        if($usuario->autenticar($_POST['login'], $_POST['senha'])){ 
+            $usuario = $usuario->getUsuario($login);
+            session_start();
+            $_SESSION['idUsuario'] = $usuario->id;
+            header('location:principal.php');
+        }
+    }
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +29,7 @@
                     <div class="panel" style="margin-top: 100px;">
                         <div class="panel-body">
                             <h4>EdBook - Login</h4>
-                            <form>
+                            <form method="post">
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
                                         <label>Login</label>

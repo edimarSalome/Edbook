@@ -35,4 +35,24 @@ class ComentarioDAO extends BaseDao{
         $this->sqlExec($sql);
     }
     
+    public function getStarByComentario($idComentario){
+        $sql = "SELECT stars from comentario where id =".$idComentario;
+        return $this->selectSQL($sql);
+        
+    }
+    
+    public function insertStar($idComentario){
+        $star = $this->getStarByComentario($idComentario);
+        $star = $star[0]->stars + 1;
+        
+        $sql = "UPDATE comentario set stars = ".$star." where id =".$idComentario;
+        $this->sqlExec($sql);
+    }
+    
+    public function insertReplica($idComentario, $idUsuario){
+        $data = new DateTime();
+        $sql = "INSERT into replica (idComentario, idUsuario, data) VALUES ('".$idComentario."','".$idUsuario."','".date_format($data, 'Y-m-d H:i:s')."')";
+        $this->sqlExec($sql);
+    }
+    
 }
