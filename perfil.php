@@ -14,6 +14,9 @@
     if(isset($_POST['naoseguir'])){
         $usuario->deixarDeSeguir($usuarioLogado, $idUsuario);
     }
+    if(isset($_POST['addStar']) && isset($_POST['idComentario'])){
+        $comentario->addStar($_POST['idComentario']);
+    }
     
     $amizade = $usuario->verificaAmizade($usuarioLogado, $idUsuario);
     

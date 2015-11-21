@@ -53,4 +53,14 @@ class UsuarioDAO extends BaseDAO{
         return $this->selectSQL($sql);
     }
     
+    public function selectUsuario($login){
+        $sql = "SELECT count(id) as id from usuario where usuario = '".$login."'";
+        return $this->selectSQL($sql);
+    }
+    
+    public function selectUsuarioByLogin($login){
+        $sql = "SELECT * from usuario where usuario = '".$login."'";
+        return $this->selectSQL($sql);
+    }
+    
 }

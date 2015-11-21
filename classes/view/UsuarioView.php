@@ -112,6 +112,29 @@ class UsuarioView {
         
     }
     
+    public function getUsuario($login){
+        $usuario = $this->usuarioDao->selectUsuarioByLogin($login);
+        return $usuario[0];
+    }
+    
+    public function autenticar($login, $senha){
+        $existe = $this->usuarioDao->selectUsuario($login);
+        $existe = $existe[0]->id;
+        
+        if($existe == 1){
+            $usuario = $this->usuarioDao->selectUsuarioByLogin($login);
+            echo $existe;
+            
+            if($usuario[0]->senha == $senha){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+    
 }
 
 

@@ -47,8 +47,20 @@ class ComentarioView {
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-sm-12 text-right">
-                                    <span><a href="#"><i class="glyphicon glyphicon-star"></i> '.$value->stars.'</a></span>
-                                    <span><a href="#"><i class="glyphicon glyphicon-share-alt"></i> '.$replicas.'</a></span>
+                                    <span style="float:right;">
+                                        <form method="post" style="float:left;">
+                                            <input type="hidden" name="addStar" value="true" />
+                                            <input type="hidden" name="idComentario" value="'.$value->id.'" />
+                                            <button type="submit" class="btn btn-link"><i class="glyphicon glyphicon-star"></i></button>
+                                        </form>'.$value->stars.'</span>
+                                    <span style="float:right;">
+                                        <form method="post" style="float:left;">
+                                            <input type="hidden" name="replicar" value="true" />
+                                            <input type="hidden" name="idComentario" value="'.$value->id.'" />
+                                            <button type="submit" class="btn btn-link">
+                                                <i class="glyphicon glyphicon-share-alt"></i>
+                                            </button>
+                                        </form>'.$replicas.'</span>
                                 </div>
                             </div>
                         </div>
@@ -86,8 +98,20 @@ class ComentarioView {
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-sm-12 text-right">
-                                    <span><a href="#"><i class="glyphicon glyphicon-star"></i> '.$value->stars.'</a></span>
-                                    <span><a href="#"><i class="glyphicon glyphicon-share-alt"></i> '.$replicas.'</a></span>
+                                    <span style="float:right;">
+                                        <form method="post" style="float:left;">
+                                            <input type="hidden" name="addStar" value="true" />
+                                            <input type="hidden" name="idComentario" value="'.$value->id.'" />
+                                            <button type="submit" class="btn btn-link"><i class="glyphicon glyphicon-star"></i></button>
+                                        </form>'.$value->stars.'</span>
+                                    <span style="float:right;">
+                                        <form method="post" style="float:left;">
+                                            <input type="hidden" name="replicar" value="true" />
+                                            <input type="hidden" name="idComentario" value="'.$value->id.'" />
+                                            <button type="submit" class="btn btn-link">
+                                                <i class="glyphicon glyphicon-share-alt"></i>
+                                            </button>
+                                        </form>'.$replicas.'</span>
                                 </div>
                             </div>
                         </div>
@@ -99,5 +123,13 @@ class ComentarioView {
     
     public function comentar($idUsuario, $comentario){
         $this->comentarioDAO->insertComentario($idUsuario, $comentario);
+    }
+    
+    public function addStar($idComentario){
+        $this->comentarioDAO->insertStar($idComentario);
+    }
+    
+    public function replicar($idComentario, $idUsuario){
+        $this->comentarioDAO->insertReplica($idComentario, $idUsuario);
     }
 }
