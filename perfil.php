@@ -2,11 +2,17 @@
     require __DIR__.'/classes/view/UsuarioView.php';
     require __DIR__.'/classes/view/ComentarioView.php';
     
+    session_start();    
+    if(!$_SESSION['idUsuario']){
+        unset($_SESSION);
+        header('location:index.php?login=false');
+    }
+    
     $usuario = new UsuarioView();
     $comentario = new ComentarioView();
     
     $idUsuario = isset($_GET['userId']) ? $_GET['userId'] : null ;
-    $usuarioLogado = 2;//Este id virá via session
+    $usuarioLogado = $_SESSION['idUsuario']; //obtido via sessão
     
     if(isset($_POST['seguir'])){
         $usuario->seguir($usuarioLogado, $idUsuario);
@@ -31,7 +37,8 @@
         <link href="lib/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="container" style="padding-top:25px;">
+        <?php $usuario->getMenu(); ?>
+        <div class="container" style="margin-top:50px; padding-top:25px;">
             <div class="row">
                 <div class="col-sm-12 col-md-8 col-md-offset-2">
                     <div class="row">
