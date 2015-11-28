@@ -2,6 +2,12 @@
 
 require 'classes/view/UsuarioView.php';
 
+    session_start();    
+    if(!$_SESSION['idUsuario']){
+        unset($_SESSION);
+        header('location:index.php?login=false');
+    }
+
 $usuario = new UsuarioView();
 $idUsuario = isset($_GET['userId']) ? $_GET['userId'] : 0;
 ?>
@@ -15,7 +21,8 @@ $idUsuario = isset($_GET['userId']) ? $_GET['userId'] : 0;
         <link href="lib/css/style.css" rel="stylesheet" >
     </head>
     <body>
-        <div class="container">
+        <?php $usuario->getMenu(); ?>
+        <div class="container" style="margin-top: 50px; padding-top: 25px;">
             <div class="row">
                 <?php $usuario->getSeguidores($idUsuario); ?>
             </div>

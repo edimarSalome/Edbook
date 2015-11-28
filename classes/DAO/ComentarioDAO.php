@@ -10,7 +10,12 @@ require_once 'BaseDAO.php';
 class ComentarioDAO extends BaseDao{
     
     public function listComentariosByUsuario($idUsuario){
-        $sql = "SELECT * FROM COMENTARIO WHERE idUsuario =".$idUsuario;
+        $sql = "SELECT * FROM COMENTARIO WHERE idUsuario =".$idUsuario." order by data desc";
+        return $this->selectSQL($sql);
+    }
+    
+    public function listComentarios(){
+        $sql = "SELECT * FROM COMENTARIO order by data desc";
         return $this->selectSQL($sql);
     }
     

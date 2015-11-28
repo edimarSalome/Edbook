@@ -1,27 +1,29 @@
 <?php
-require_once 'classes/view/UsuarioView.php';
-require_once 'classes/view/ComentarioView.php';
 
-session_start();
-if (!$_SESSION['idUsuario']) {
-    unset($_SESSION);
-    header('location:index.php?login=false');
-}
+    require_once 'classes/view/UsuarioView.php';
+    require_once 'classes/view/ComentarioView.php';
+    
+    session_start();    
+    if(!$_SESSION['idUsuario']){
+        unset($_SESSION);
+        header('location:index.php?login=false');
+    }
+    
+    $usuario = new UsuarioView();
+    $idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null ; //obtido via sessão
+    $comentario = new ComentarioView();
+    
+    if(isset($_POST['comentario']) && $_POST['comentario'] != " " && $_POST['comentario'] != $comentarioBk ){
+        $comentarioBk = $_POST['comentario'];
+        $comentario->comentar($idUsuario, $_POST['comentario']);
+    }
+    if(isset($_POST['addStar']) && isset($_POST['idComentario'])){
+        $comentario->addStar($_POST['idComentario']);
+    }
+    if(isset($_POST['replicar']) && isset($_POST['idComentario'])){
+        $comentario->replicar($_POST['idComentario'], $idUsuario);
+    }
 
-$usuario = new UsuarioView();
-$idUsuario = isset($_SESSION['idUsuario']) ? $_SESSION['idUsuario'] : null; //obtido via sessão
-$comentario = new ComentarioView();
-
-if (isset($_POST['comentario']) && $_POST['comentario'] != " " && $_POST['comentario'] != $comentarioBk) {
-    $comentarioBk = $_POST['comentario'];
-    $comentario->comentar($idUsuario, $_POST['comentario']);
-}
-if (isset($_POST['addStar']) && isset($_POST['idComentario'])) {
-    $comentario->addStar($_POST['idComentario']);
-}
-if (isset($_POST['replicar']) && isset($_POST['idComentario'])) {
-    $comentario->replicar($_POST['idComentario'], $idUsuario);
-}
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +48,7 @@ if (isset($_POST['replicar']) && isset($_POST['idComentario'])) {
                                 <div class="panel-body">
                                     <form method="post">
                                         <div class="col-sm-12 form-group">
-                                            <textarea placeholder="Vai dizer o que?" class="form-control" name="comentario"></textarea>
+                                            <textarea placeholder="Vai dizer o que?" class="form-control" name="comentario" required></textarea>
                                         </div>
                                         <div class="col-sm-12 form-group">
                                             <button type="submit" class="btn btn-primary pull-right">Publicar</button>
@@ -58,7 +60,7 @@ if (isset($_POST['replicar']) && isset($_POST['idComentario'])) {
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-<?php $comentario->getFeedByUsuario($idUsuario); ?>
+                            <?php $comentario->getTodosComentarios(); ?>
                         </div>
                     </div>
                 </div>
@@ -66,3 +68,4 @@ if (isset($_POST['replicar']) && isset($_POST['idComentario'])) {
         </div>
     </body>
 </html>
+

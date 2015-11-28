@@ -63,6 +63,8 @@ class UsuarioView {
                 <ul class="list-group">
                     <li class="list-group-item"><a href="perfil.php?userId='.$value->id.'">@'.$value->usuario.'</a></li>
                     <li class="list-group-item"><a href="seguidores.php?userId='.$value->id.'">Seguidores</a></li>
+                    <li class="list-group-item"><a href="principal.php">Feed</a></li>
+                    <li class="list-group-item"><a href="worldwide.php">WorldWide</a></li>
                 </ul>';
                 echo $html;
         }
@@ -102,7 +104,7 @@ class UsuarioView {
                 $html = '<div class="col-xs-12 col-md-3">
                             <img class="foto-perfil" src="'.PASTAIMG.$usuario->foto.'" alt="Foto perfil" title="Foto perfil"/>
                             <ul class="list-group">
-                                <li class="list-group-item"><a href="seguidores.php?userId='.$usuario->id.'">Seguidores</a></li>
+                                <li class="list-group-item"><a href="perfil.php?userId='.$usuario->id.'">@'.$usuario->usuario.'</a></li>
                             </ul>
                         </div>';
 
@@ -133,6 +135,19 @@ class UsuarioView {
         }else{
             return false;
         }
+    }
+    
+    function getMenu(){
+        $html = '<nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="principal.php" >EdBook</a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.php?logout=true"><i class="glyphicon glyphicon-log-out"></i> Sair</a></li>
+                </ul>
+            </div>
+        </nav>';
+        
+        echo $html;
     }
     
 }
